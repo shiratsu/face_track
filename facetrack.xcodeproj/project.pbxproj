@@ -14,6 +14,10 @@
 		567830031FE768AB00A0B641 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 567830011FE768AB00A0B641 /* LaunchScreen.storyboard */; };
 		5678300E1FE768AB00A0B641 /* facetrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5678300D1FE768AB00A0B641 /* facetrackTests.swift */; };
 		567830191FE768AB00A0B641 /* facetrackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567830181FE768AB00A0B641 /* facetrackUITests.swift */; };
+		567830281FE769CA00A0B641 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567830271FE769CA00A0B641 /* AVFoundation.framework */; };
+		5678302A1FE769D100A0B641 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567830291FE769D100A0B641 /* CoreML.framework */; };
+		5678302C1FE769D900A0B641 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5678302B1FE769D900A0B641 /* Vision.framework */; };
+		5678302E1FE76B6300A0B641 /* CameraExtensionForViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5678302D1FE76B6300A0B641 /* CameraExtensionForViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		567830141FE768AB00A0B641 /* facetrackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = facetrackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		567830181FE768AB00A0B641 /* facetrackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = facetrackUITests.swift; sourceTree = "<group>"; };
 		5678301A1FE768AB00A0B641 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		567830271FE769CA00A0B641 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		567830291FE769D100A0B641 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		5678302B1FE769D900A0B641 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
+		5678302D1FE76B6300A0B641 /* CameraExtensionForViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExtensionForViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5678302C1FE769D900A0B641 /* Vision.framework in Frameworks */,
+				5678302A1FE769D100A0B641 /* CoreML.framework in Frameworks */,
+				567830281FE769CA00A0B641 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +92,7 @@
 				5678300C1FE768AB00A0B641 /* facetrackTests */,
 				567830171FE768AB00A0B641 /* facetrackUITests */,
 				56782FF61FE768AB00A0B641 /* Products */,
+				567830261FE769CA00A0B641 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +115,7 @@
 				56782FFF1FE768AB00A0B641 /* Assets.xcassets */,
 				567830011FE768AB00A0B641 /* LaunchScreen.storyboard */,
 				567830041FE768AB00A0B641 /* Info.plist */,
+				5678302D1FE76B6300A0B641 /* CameraExtensionForViewController.swift */,
 			);
 			path = facetrack;
 			sourceTree = "<group>";
@@ -123,6 +136,16 @@
 				5678301A1FE768AB00A0B641 /* Info.plist */,
 			);
 			path = facetrackUITests;
+			sourceTree = "<group>";
+		};
+		567830261FE769CA00A0B641 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5678302B1FE769D900A0B641 /* Vision.framework */,
+				567830291FE769D100A0B641 /* CoreML.framework */,
+				567830271FE769CA00A0B641 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +284,7 @@
 			files = (
 				56782FFB1FE768AB00A0B641 /* ViewController.swift in Sources */,
 				56782FF91FE768AB00A0B641 /* AppDelegate.swift in Sources */,
+				5678302E1FE76B6300A0B641 /* CameraExtensionForViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +453,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S56GZ64EWS;
 				INFOPLIST_FILE = facetrack/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.indival.facetrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -444,6 +469,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S56GZ64EWS;
 				INFOPLIST_FILE = facetrack/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.indival.facetrack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
