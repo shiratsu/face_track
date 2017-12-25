@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5664B90F1FEBB43A008FF0A1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5664B90E1FEBB43A008FF0A1 /* ViewController.xib */; };
+		5664B9121FEBB484008FF0A1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664B9101FEBB484008FF0A1 /* SecondViewController.swift */; };
+		5664B9131FEBB484008FF0A1 /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5664B9111FEBB484008FF0A1 /* SecondViewController.xib */; };
+		5664B9151FEBB6AD008FF0A1 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664B9141FEBB6AD008FF0A1 /* DetailsView.swift */; };
 		56782FF91FE768AB00A0B641 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56782FF81FE768AB00A0B641 /* AppDelegate.swift */; };
 		56782FFB1FE768AB00A0B641 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56782FFA1FE768AB00A0B641 /* ViewController.swift */; };
 		56782FFE1FE768AB00A0B641 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56782FFC1FE768AB00A0B641 /* Main.storyboard */; };
@@ -38,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5664B90E1FEBB43A008FF0A1 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		5664B9101FEBB484008FF0A1 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		5664B9111FEBB484008FF0A1 /* SecondViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
+		5664B9141FEBB6AD008FF0A1 /* DetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		56782FF51FE768AB00A0B641 /* facetrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = facetrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56782FF81FE768AB00A0B641 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56782FFA1FE768AB00A0B641 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +117,7 @@
 		56782FF71FE768AB00A0B641 /* facetrack */ = {
 			isa = PBXGroup;
 			children = (
+				5664B9141FEBB6AD008FF0A1 /* DetailsView.swift */,
 				56782FF81FE768AB00A0B641 /* AppDelegate.swift */,
 				56782FFA1FE768AB00A0B641 /* ViewController.swift */,
 				56782FFC1FE768AB00A0B641 /* Main.storyboard */,
@@ -116,6 +125,9 @@
 				567830011FE768AB00A0B641 /* LaunchScreen.storyboard */,
 				567830041FE768AB00A0B641 /* Info.plist */,
 				5678302D1FE76B6300A0B641 /* CameraExtensionForViewController.swift */,
+				5664B90E1FEBB43A008FF0A1 /* ViewController.xib */,
+				5664B9101FEBB484008FF0A1 /* SecondViewController.swift */,
+				5664B9111FEBB484008FF0A1 /* SecondViewController.xib */,
 			);
 			path = facetrack;
 			sourceTree = "<group>";
@@ -257,7 +269,9 @@
 			files = (
 				567830031FE768AB00A0B641 /* LaunchScreen.storyboard in Resources */,
 				567830001FE768AB00A0B641 /* Assets.xcassets in Resources */,
+				5664B90F1FEBB43A008FF0A1 /* ViewController.xib in Resources */,
 				56782FFE1FE768AB00A0B641 /* Main.storyboard in Resources */,
+				5664B9131FEBB484008FF0A1 /* SecondViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +296,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5664B9121FEBB484008FF0A1 /* SecondViewController.swift in Sources */,
+				5664B9151FEBB6AD008FF0A1 /* DetailsView.swift in Sources */,
 				56782FFB1FE768AB00A0B641 /* ViewController.swift in Sources */,
 				56782FF91FE768AB00A0B641 /* AppDelegate.swift in Sources */,
 				5678302E1FE76B6300A0B641 /* CameraExtensionForViewController.swift in Sources */,
