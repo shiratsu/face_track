@@ -121,6 +121,8 @@ extension ViewController {
             // didOutputSampleBufferを呼ぶため用
             let queue = DispatchQueue(label: "output.queue")
             output.setSampleBufferDelegate(self, queue: queue)
+            output.connection(with: .video)?.videoOrientation = .portrait
+            
             
         } catch {
             print("error with creating AVCaptureDeviceInput")
@@ -148,7 +150,7 @@ extension ViewController {
             let vcl = segue.destination as! SecondViewController
             if let sendDic: [String: Any] = sender as? [String: Any]{
                 vcl.ciImage = sendDic["ciImage"] as? CIImage
-                vcl.features = sendDic["faceFeature"] as? CIFaceFeature
+                vcl.features = sendDic["faceRect"] as? CGRect
             }
             session?.stopRunning()
         }

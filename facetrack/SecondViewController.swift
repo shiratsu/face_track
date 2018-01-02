@@ -13,7 +13,7 @@ class SecondViewController: UIViewController {
     
     @IBOutlet weak var photoView: UIImageView!
     
-    var features: CIFaceFeature? = nil
+    var features: CGRect? = nil
     var ciImage: CIImage? = nil
     
     /**
@@ -28,15 +28,23 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let constCiImage: CIImage = ciImage{
-            let showImage: UIImage = UIImage(ciImage: constCiImage)
-            photoView.image = showImage
+        if let constCiImage: CIImage = ciImage,let constFeatures = features{
+            let beforeImage: UIImage = UIImage(ciImage: constCiImage)
+            
+//            if let fiximage = fixOrientationOfImage(image: beforeImage){
+//                photoView.image = fiximage
+//            }
+            print(constFeatures)
+            photoView.image = beforeImage
+            
+            
         }
         
-        
-
         // Do any additional setup after loading the view.
     }
+    
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
