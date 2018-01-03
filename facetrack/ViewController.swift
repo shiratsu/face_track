@@ -149,8 +149,8 @@ extension ViewController {
         if segue.identifier == "checkPreview" {
             let vcl = segue.destination as! SecondViewController
             if let sendDic: [String: Any] = sender as? [String: Any]{
-                vcl.ciImage = sendDic["ciImage"] as? CIImage
-                vcl.features = sendDic["faceRect"] as? CGRect
+                vcl.faceImage = sendDic["trimedImage"] as? UIImage
+                
             }
             session?.stopRunning()
         }

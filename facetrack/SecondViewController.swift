@@ -15,6 +15,7 @@ class SecondViewController: UIViewController {
     
     var features: CGRect? = nil
     var ciImage: CIImage? = nil
+    var faceImage: UIImage? = nil
     
     /**
      xibを読み込む
@@ -28,16 +29,20 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let constCiImage: CIImage = ciImage,let constFeatures = features{
-            let beforeImage: UIImage = UIImage(ciImage: constCiImage)
-            
-//            if let fiximage = fixOrientationOfImage(image: beforeImage){
-//                photoView.image = fiximage
-//            }
-            print(constFeatures)
-            photoView.image = beforeImage
-            
-            
+//        if let constCiImage: CIImage = ciImage,let constFeatures = features{
+//            let beforeImage: UIImage = UIImage(ciImage: constCiImage)
+//
+////            if let fiximage = fixOrientationOfImage(image: beforeImage){
+////                photoView.image = fiximage
+////            }
+//            print(constFeatures)
+//            photoView.image = beforeImage
+//
+//
+//        }
+        
+        if let constImage = faceImage{
+            photoView.image = constImage
         }
         
         // Do any additional setup after loading the view.

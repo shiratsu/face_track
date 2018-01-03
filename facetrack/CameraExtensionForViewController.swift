@@ -65,9 +65,9 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         // that represents image data valid for display.
         let cleanAperture = CMVideoFormatDescriptionGetCleanAperture(formatDescription!, false)
         
-//        performRectangleDetection(ciImage, cleanAperture: cleanAperture)
+        performRectangleDetection(ciImage, cleanAperture: cleanAperture)
         
-        pickDelegate?.trimFace(["faceRect": [:],"ciImage": ciImage])
+//        pickDelegate?.trimFace(["faceRect": [:],"ciImage": ciImage])
     }
     
     //MARK: Utility methods
@@ -77,7 +77,6 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     /// - Parameter image: <#image description#>
     /// - Returns: <#return value description#>
     func performRectangleDetection(_ image: CIImage,cleanAperture: CGRect){
-        var resultImage: CIImage?
         
         let options: [String : Any] = [CIDetectorImageOrientation: exifOrientation(orientation: UIDevice.current.orientation),
                                        CIDetectorSmile: true,
@@ -97,13 +96,19 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                     if let faceFeature = feature as? CIFaceFeature {
                         
                         // 顔の形を取得する
-                        let faceRect = calculateFaceRect(facePosition: faceFeature.mouthPosition, faceBounds: faceFeature.bounds, clearAperture: cleanAperture)
-                        print("-----------------------------")
-                        print(faceRect)
-                        print("-----------------------------")
-//                        resultImage = image.cropped(to: faceRect)
-                        pickDelegate?.trimFace(["faceRect": faceRect,"ciImage": image])
-                        break
+                        let faceRects = calcFaceRect2(faceFeature, image: UIImage(ciImage: image), margin_rate: 0.35)
+                        if let faceRect = inclusionRect(faceRects){
+                            print("-----------------------------")
+                            print(faceRect)
+                            print("-----------------------------")
+                            //                        resultImage = image.cropped(to: faceRect)
+                            if let trimedImage = UIImage(ciImage: image).cropping(to: faceRect){
+                                pickDelegate?.trimFace(["trimedImage": trimedImage])
+                                break
+                            }
+                        }
+                        
+                        
                     }
                     
                 }
@@ -111,6 +116,102 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
     }
+    
+    /// 与えられた画像の顔の座標、大きさを返す。
+    ///
+    /// - Parameter image: 画像
+    /// - Parameter margin: 余白
+    /// - Returns: 顔の座標、大きさのCGRect配列
+    func CIDetectOfFace(_ image: UIImage, quality:String = CIDetectorAccuracyHigh, margin_rate:CGFloat = 0.4)->[CGRect]{
+        // CIDetector導入
+        let ciImage  = CIImage(image:image)
+        let ciDetector = CIDetector(ofType:CIDetectorTypeFace
+            ,context:CIContext()
+            ,options:[
+                CIDetectorAccuracy:quality,
+                CIDetectorSmile:true
+            ]
+        )
+        
+        // 認識
+        let features = ciDetector?.features(in: ciImage!)
+        var faceRects:[CGRect] = []
+        
+        // 顔情報取得
+        for feature in features!{
+            //face
+            var faceRect = (feature as! CIFaceFeature).bounds
+            
+            // 左下起点、Rect左下から、左上起点、Rect左上へ、座標系を合わせる
+            faceRect.origin.y = image.size.height - faceRect.origin.y - faceRect.height
+            
+            // 余白を持たせる
+            let widthMargin = faceRect.width * margin_rate
+            faceRect.origin.x -= widthMargin
+            faceRect.size.width += widthMargin*2
+            
+            let heightMargin = faceRect.height * margin_rate
+            faceRect.origin.y -= heightMargin*2
+            faceRect.size.height += heightMargin*2
+            
+            print(faceRect," in ",image.size)
+            image.size
+            faceRects.append(faceRect)
+            
+        }
+        return faceRects
+    }
+    
+    
+    /// 顔の特徴を取り出す
+    ///
+    /// - Parameters:
+    ///   - feature: <#feature description#>
+    ///   - image: <#image description#>
+    ///   - margin_rate: <#margin_rate description#>
+    /// - Returns: <#return value description#>
+    func calcFaceRect2(_ feature: CIFaceFeature,image: UIImage,margin_rate: CGFloat = 0.4) -> [CGRect]{
+    
+        var faceRects:[CGRect] = []
+        
+        //face
+        var faceRect = feature.bounds
+        
+        // 左下起点、Rect左下から、左上起点、Rect左上へ、座標系を合わせる
+        faceRect.origin.y = image.size.height - faceRect.origin.y - faceRect.height
+        
+        // 余白を持たせる
+        let widthMargin = faceRect.width * margin_rate
+        faceRect.origin.x -= widthMargin
+        faceRect.size.width += widthMargin*2
+        
+        let heightMargin = faceRect.height * margin_rate
+        faceRect.origin.y -= heightMargin*2
+        faceRect.size.height += heightMargin*2
+        
+        print(faceRect," in ",image.size)
+        image.size
+        faceRects.append(faceRect)
+        
+        return faceRects
+    }
+    
+    /// 与えられたRect群を全て包含するようなRectを返す。
+    ///
+    /// - Parameter rects: 包含されるRect群
+    /// - Returns: Rect群を包含するようなRect
+    func  inclusionRect(_ rects:[CGRect])->CGRect?{
+        if rects.count == 0{return nil}
+        
+        let maxX:CGFloat = rects.map({$0.maxX}).max()!
+        let minX:CGFloat = rects.map({$0.minX}).min()!
+        let maxY:CGFloat = rects.map({$0.maxY}).max()!
+        let minY:CGFloat = rects.map({$0.minY}).min()!
+        
+        return CGRect(x:minX,y:minY,width:maxX-minX,height:maxY-minY)
+    }
+
+    
     
     func exifOrientation(orientation: UIDeviceOrientation) -> Int {
         switch orientation {
@@ -192,6 +293,28 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         return videoBox
+    }
+    
+    
+}
+
+extension UIImage {
+    func cropping(to: CGRect) -> UIImage? {
+        var opaque = false
+        if let cgImage = cgImage {
+            switch cgImage.alphaInfo {
+            case .noneSkipLast, .noneSkipFirst:
+                opaque = true
+            default:
+                break
+            }
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(to.size, opaque, scale)
+        draw(at: CGPoint(x: -to.origin.x, y: -to.origin.y))
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
     }
 }
 
