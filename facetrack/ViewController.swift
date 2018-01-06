@@ -46,7 +46,7 @@ final class ViewController: UIViewController {
     
     
     // 顔認識オブジェクト
-    let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyLow])
+    let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
     
     /**
      xibを読み込む
