@@ -22,6 +22,8 @@
 		5678302A1FE769D100A0B641 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 567830291FE769D100A0B641 /* CoreML.framework */; };
 		5678302C1FE769D900A0B641 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5678302B1FE769D900A0B641 /* Vision.framework */; };
 		5678302E1FE76B6300A0B641 /* CameraExtensionForViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5678302D1FE76B6300A0B641 /* CameraExtensionForViewController.swift */; };
+		56C3321B203A839000E13B16 /* dev.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 56C3321A203A839000E13B16 /* dev.mlmodel */; };
+		56C3321D203A884000E13B16 /* dev3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 56C3321C203A884000E13B16 /* dev3.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		567830291FE769D100A0B641 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		5678302B1FE769D900A0B641 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		5678302D1FE76B6300A0B641 /* CameraExtensionForViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraExtensionForViewController.swift; sourceTree = "<group>"; };
+		56C3321A203A839000E13B16 /* dev.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = dev.mlmodel; sourceTree = "<group>"; };
+		56C3321C203A884000E13B16 /* dev3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = dev3.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 		56782FF71FE768AB00A0B641 /* facetrack */ = {
 			isa = PBXGroup;
 			children = (
+				56C3321C203A884000E13B16 /* dev3.mlmodel */,
+				56C3321A203A839000E13B16 /* dev.mlmodel */,
 				5664B9141FEBB6AD008FF0A1 /* DetailsView.swift */,
 				56782FF81FE768AB00A0B641 /* AppDelegate.swift */,
 				56782FFA1FE768AB00A0B641 /* ViewController.swift */,
@@ -297,9 +303,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5664B9121FEBB484008FF0A1 /* SecondViewController.swift in Sources */,
+				56C3321D203A884000E13B16 /* dev3.mlmodel in Sources */,
 				5664B9151FEBB6AD008FF0A1 /* DetailsView.swift in Sources */,
 				56782FFB1FE768AB00A0B641 /* ViewController.swift in Sources */,
 				56782FF91FE768AB00A0B641 /* AppDelegate.swift in Sources */,
+				56C3321B203A839000E13B16 /* dev.mlmodel in Sources */,
 				5678302E1FE76B6300A0B641 /* CameraExtensionForViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

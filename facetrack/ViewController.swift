@@ -12,9 +12,9 @@ import CoreML
 import Vision
 
 final class ViewController: UIViewController {
+    @IBOutlet weak var textview: UITextView!
     
     var session: AVCaptureSession?
-    var stillOutput = AVCaptureStillImageOutput()
     var borderLayer: CAShapeLayer?
     
     var pickDelegate: PickFaceInfo?
@@ -41,7 +41,7 @@ final class ViewController: UIViewController {
     lazy var backCamera: AVCaptureDevice? = {
         guard let devices = AVCaptureDevice.devices(for: AVMediaType.video) as? [AVCaptureDevice] else { return nil }
         
-        return devices.filter { $0.position == .front }.first
+        return devices.filter { $0.position == .back }.first
     }()
     
     

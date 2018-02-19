@@ -9,6 +9,7 @@
 
 import AVFoundation
 import UIKit
+import Vision
 
 protocol PickFaceInfo: class{
     
@@ -36,32 +37,47 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
         
+//        // CMSampleBufferをCVPixelBufferに変換
+//        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+//
+//        let attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate)
+//
+//        // attachements無くても作れるけど、attachmentsは必要なのかどうかよくわからんなあ
+//        let ciImage = CIImage(cvImageBuffer: pixelBuffer, options: attachments as! [String : Any]?)
+//
+//
+//        let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
+//
+//
+//        let cleanAperture = CMVideoFormatDescriptionGetCleanAperture(formatDescription!, false)
+//
+//        performRectangleDetection(ciImage, cleanAperture: cleanAperture)
+        
         // CMSampleBufferをCVPixelBufferに変換
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
-        let attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate)
-        
-        // attachements無くても作れるけど、attachmentsは必要なのかどうかよくわからんなあ
-        let ciImage = CIImage(cvImageBuffer: pixelBuffer, options: attachments as! [String : Any]?)
+        // CoreMLのモデルクラスの初期化
+        guard let model = try? VNCoreMLModel(for: dev3.init().model) else { return }
         
         
-//        var dicFace: [String: Any?] = [:]
-//        dicFace["ciImage"] = ciImage
-//        dicFace["faceFeatures"] = []
+        // 画像認識リクエストを作成（引数はモデルとハンドラ）
+        let request = VNCoreMLRequest(model: model) {
+            [weak self] (request: VNRequest, error: Error?) in
+            guard let results = request.results as? [VNClassificationObservation] else { return }
+            
+            // 判別結果とその確信度を上位3件まで表示
+            // identifierは類義語がカンマ区切りで複数書かれていることがあるので、最初の単語のみ取得する
+            let displayText = results.prefix(3).flatMap { "\(Int($0.confidence * 100))% \($0.identifier.components(separatedBy: ", ")[0])" }.joined(separator: "\n")
+            
+            DispatchQueue.main.async {
+                self?.textview.text = displayText
+            }
+        }
         
-//        print(dicFace)
-//        goToPreview(dicFace)
+        // CVPixelBufferに対し、画像認識リクエストを実行
+        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
         
-        let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
-        
-        // get the clean aperture
-        // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
-        // that represents image data valid for display.
-        let cleanAperture = CMVideoFormatDescriptionGetCleanAperture(formatDescription!, false)
-        
-        performRectangleDetection(ciImage, cleanAperture: cleanAperture)
-        
-//        pickDelegate?.trimFace(["faceRect": [:],"ciImage": ciImage])
+
     }
     
     //MARK: Utility methods
